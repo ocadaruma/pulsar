@@ -130,6 +130,10 @@ public class MessageCryptoBc implements MessageCrypto<MessageMetadata, MessageMe
     }
 
     public MessageCryptoBc(String logCtx, boolean keyGenNeeded) {
+        this(logCtx, keyGenNeeded, BouncyCastleProvider.PROVIDER_NAME);
+    }
+
+    public MessageCryptoBc(String logCtx, boolean keyGenNeeded, String provider) {
 
         this.logCtx = logCtx;
         encryptedDataKeyMap = new ConcurrentHashMap<String, EncryptionKeyInfo>();
@@ -145,7 +149,7 @@ public class MessageCryptoBc implements MessageCrypto<MessageMetadata, MessageMe
 
         try {
 
-            cipher = Cipher.getInstance(AESGCM, BouncyCastleProvider.PROVIDER_NAME);
+            cipher = Cipher.getInstance(AESGCM, provider);
             // If keygen is not needed(e.g: consumer), data key will be decrypted from the message
             if (!keyGenNeeded) {
                 // codeql[java/weak-cryptographic-algorithm] - md5 is sufficient for this use case
