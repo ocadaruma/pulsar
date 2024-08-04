@@ -25,8 +25,8 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 @Fork(1)
-@Warmup(iterations = 1)
-@Measurement(iterations = 2)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10)
 @BenchmarkMode(Mode.Throughput)
 public class MessageCryptoBcBenchmark {
     public static class EncKeyReader implements CryptoKeyReader {
